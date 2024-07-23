@@ -1,73 +1,210 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Health&Med | ScheduleService - Microserviço para gestão de agenda
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto foi implementa para a etapa de Hackaton da pós graduação em Arquitetura de Software pela FIAP.
+Este Microserviço é responsavel por gerenciar a agenda do médico, onde o mesmo edita sua agenda e os seus dados de atendimento.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Índice
 
-## Description
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Arquitetura Hexagonal / Limpa](#arquitetura-hexagonal--limpa)
+- [Setup do ambiente de desenvolvimento](#setup-do-ambiente-de-desenvolvimento)
+  - [Pré-requisitos](#pré-requisitos)
+- [Banco de Dados](#banco-de-dados)
+  - [Configuração](#configuração-do-projeto)
+- [Docker e Docker Compose](#docker-e-docker-compose)
+  - [Dockerfile](#dockerfile)
+  - [Docker Compose](#docker-compose)
+- [Infraestrutura Kubernetes](#infraestrutura-com-kubernetes)
+  - [Banco de Dados](#banco-de-dados-1)
+  - [Aplicação](#aplicação)
+- [Postman](#postman)
+- [Conclusão](#conclusão)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+<a name="section-1"></a>
 
-## Installation
+### Estrutura do Projeto
 
-```bash
-$ pnpm install
+- `src`
+
+  - `modules`: Os módulos da aplicação, cada um responsável por uma parte específica do sistema. Cada módulo configura suas próprias entidades, repositórios e controladores.
+
+  - `core`
+
+    - `domain`: Contém as entidades, portas (ports), e interfaces que representam a lógica de domínio do sistema. Também inclui objetos de valor, DTOs entre outros recursos.
+    - `application`: Aqui estão os casos de uso (use-cases) que implementam a lógica de negócios. Eles interagem com os repositórios por meio de ports para fazer a persistencia dos dados.
+
+  - `adapter`: wip
+  - `config`: Armazena arquivos de configuração, como variáveis de ambiente e os 'symbol' usados para injeção de dependência do NestJS.
+  - ![Estrutura do Projeto](docs/images/project-structure.drawio.png 'Estrutura do Projeto')
+
+<a name="section-2"></a>
+
+### Arquitetura Hexagonal / Limpa
+
+A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupações em camadas distintas e prove uma estrutura organizada e testável para sua aplicação. As camadas bem definidas facilitam a manutenção, testes e evolução do sistema.
+
+1. Camada de Domínio (Core - Domain):
+
+   - Contém as entidades de domínio que representam os objetos principais do sistema.
+   - Define portas (ports) e interfaces que descrevem a interação com componentes externos, como repositórios.
+   - Contém objetos de valor (value objects) que representam conceitos imutáveis do domínio.
+   - Define DTOs (Data Transfer Objects) para transferir dados entre as camadas.
+
+2. Camada de Aplicação (Core - Application): wip
+
+3. Camada de Adaptadores (Adapter): wip
+
+<a name="section-3"></a>
+
+### Setup do ambiente de desenvolvimento
+
+<a name="#section-3.1"></a>
+
+#### Pré-requisitos
+
+- [NodeJS](https://nodejs.org/)
+- [pnpm](https://pnpm.io)
+- [Docker](https://www.docker.com/)
+  - Instale também o [Docker Compose](https://docs.docker.com/compose/)
+- [Kubernetes](https://kubernetes.io/pt-br/)
+- [Visual Studio Code](https://code.visualstudio.com/) ou [WebStorm](https://www.jetbrains.com/webstorm/)
+
+<a name="#section-4"></a>
+
+### Banco de Dados
+
+wip
+
+![Arquitetura do Banco](docs/images/DB-ER-Diagram.png 'Arquitetura do Banco')
+
+#### Configuração do Projeto
+
+Antes de iniciar o projeto, siga as etapas abaixo para configurá-lo corretamente:
+
+1. Copie o arquivo `settings.json.template` e renomeie-o para `settings.json`. O arquivo `settings.json` está localizado na pasta `src/`. Este arquivo contém as configurações essenciais do projeto, como variáveis de ambiente e configurações específicas. Certifique-se de definir as configurações apropriadas, como credenciais de banco de dados, portas e outras variáveis necessárias.
+
+<a name="#section-5"></a>
+
+### Docker e Docker Compose
+
+O projeto utiliza Docker e Docker Compose para facilitar a criação e execução do ambiente de desenvolvimento. Aqui estão os arquivos relevantes:
+
+<a name="#section-5.1"></a>
+
+#### Dockerfile
+
+O arquivo Dockerfile define a imagem do contêiner do Node.js a ser usada para executar o projeto.
+
+```dockerfile
+FROM node:20
+
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+
+USER node
+
+WORKDIR /home/node
+
+RUN npm install --global pnpm
+
+WORKDIR /home/node/app
+
+COPY --chown=node:node package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
+
+COPY --chown=node:node . .
+
+COPY --chown=node:node ./src/settings.json.template ./src/settings.json
+
+RUN pnpm run build
+
+EXPOSE 3333
+
+CMD [ "node", "dist/main.js" ]
+
 ```
 
-## Running the app
+<a name="#section-5.2"></a>
 
-```bash
-# development
-$ pnpm run start
+#### Docker Compose
 
-# watch mode
-$ pnpm run start:dev
+O arquivo docker-compose.yml define os serviços a serem executados usando o Docker Compose. Ele inclui os serviços do aplicativo (Node.js) e do banco de dados (PostgreSQL).
 
-# production mode
-$ pnpm run start:prod
+```yaml
+services:
+  schedule-db:
+    container_name: ms-schedule-db
+    build: .docker/postgres
+    environment:
+      POSTGRES_DB: scheduledb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
+    profiles: [dev]
+    networks:
+      - schedule-service
+
+  application:
+    container_name: schedule-service-app
+    build: .
+    ports:
+      - 3333:3333
+    mem_limit: 2g
+    profiles: [build]
+    networks:
+      - schedule-service
+
+networks:
+  schedule-service:
 ```
 
-## Test
+Para iniciar o projeto, siga estas etapas:
+
+1. Certifique-se de ter o Docker e o Docker Compose instalados no seu sistema.
+
+2. No diretório raiz do seu projeto, onde o arquivo docker-compose.yml está localizado, execute o seguinte comando para iniciar os serviços:
+
+Inicializar banco de dados PostgreSQL
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+docker compose -p schedule-db --profile dev up -d
 ```
 
-## Support
+Inicializar apenas a aplicação
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+docker compose -p schedule-app --profile build up -d
+```
 
-## Stay in touch
+Isso criará os contêineres para o aplicativo e o banco de dados.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+3. Após a inicialização bem-sucedida, a aplicação estará disponível em `http://localhost:3333`. Certifique-se de que a porta 333 esteja mapeada corretamente no arquivo `docker-compose.yml`.
 
-## License
+<a name="#section-6"></a>
 
-Nest is [MIT licensed](LICENSE).
+### Infraestrutura com Kubernetes
+
+wip
+
+![Infraestrutura do projeto com Kubernetes](docs/infra/Infra-Kubernetes-v1.png)
+wip
+
+<a name="#section-6.1"></a>
+
+#### Banco de Dados
+
+wip
+
+### Postman
+
+wip
+
+<a name="#section-7"></a>
+
+### Conclusão
+
+---
+
+Com isso, seu projeto estará configurado e em execução dentro de um ambiente Dockerizado.
