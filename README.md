@@ -35,7 +35,6 @@ Este Microserviço é responsavel por gerenciar a agenda do médico, onde o mesm
 
   - `adapter`: wip
   - `config`: Armazena arquivos de configuração, como variáveis de ambiente e os 'symbol' usados para injeção de dependência do NestJS.
-  - ![Estrutura do Projeto](docs/images/project-structure.drawio.png 'Estrutura do Projeto')
 
 <a name="section-2"></a>
 
@@ -74,8 +73,6 @@ A arquitetura hexagonal é uma abordagem que enfatiza a separação das preocupa
 ### Banco de Dados
 
 wip
-
-![Arquitetura do Banco](docs/images/DB-ER-Diagram.png 'Arquitetura do Banco')
 
 #### Configuração do Projeto
 
@@ -186,9 +183,6 @@ Isso criará os contêineres para o aplicativo e o banco de dados.
 
 ### Infraestrutura com Kubernetes
 
-wip
-
-![Infraestrutura do projeto com Kubernetes](docs/infra/Infra-Kubernetes-v1.png)
 wip
 
 <a name="#section-6.1"></a>
