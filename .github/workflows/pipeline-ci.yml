@@ -28,7 +28,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Copy settings file
-        run: cp ./src/config/settings.template ./src/config/settings.json
+        run: cp ./src/settings.template ./src/settings.json
 
       - name: Build project
         run: pnpm run build
