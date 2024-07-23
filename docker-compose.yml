@@ -1,0 +1,26 @@
+services:
+  schedule-db:
+    container_name: ms-schedule-db
+    build: .docker/postgres
+    environment:
+      POSTGRES_DB: scheduledb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
+    profiles: [dev]
+    networks:
+      - schedule-service
+
+  application:
+    container_name: schedule-service-app
+    build: .
+    ports:
+      - 3333:3333
+    mem_limit: 2g
+    profiles: [build]
+    networks:
+      - schedule-service
+
+networks:
+  schedule-service:
