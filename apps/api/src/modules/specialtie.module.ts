@@ -1,20 +1,25 @@
 import { CqrsModule } from '@nestjs/cqrs';
 import { Module, Provider } from '@nestjs/common';
 
-import { SPECIALTIE_SERVICE } from '../config';
+import { POSTGRES_DATA_SOURCE, SPECIALTIE_REPOSITORY } from '../config';
 import { SpecialtieRepository } from '../adapters';
-import { CreateSpecialtieCommandHandler } from '../core/application/specialtie';
 import { SpecialtieController } from '../consumers';
+import { CreateSpecialtieCommandHandler } from '../core/application/specialtie';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Specialtie } from '../core/domain';
 
-const handlers: Provider[] = [CreateSpecialtieCommandHandler];
 const controllers = [SpecialtieController];
-const services: Provider[] = [];
+const handlers: Provider[] = [CreateSpecialtieCommandHandler];
 const repositories: Provider[] = [
-  { provide: SPECIALTIE_SERVICE, useClass: SpecialtieRepository },
+  { provide: SPECIALTIE_REPOSITORY, useClass: SpecialtieRepository },
 ];
+const services: Provider[] = [];
 
 @Module({
-  imports: [CqrsModule],
+  imports: [
+    CqrsModule,
+    TypeOrmModule.forFeature([Specialtie], POSTGRES_DATA_SOURCE),
+  ],
   controllers: [...controllers],
   providers: [...handlers, ...repositories, ...services],
 })
