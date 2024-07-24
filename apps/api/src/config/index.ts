@@ -2,7 +2,8 @@ import { join } from 'path';
 import { readFileSync } from 'fs';
 import _ from 'lodash';
 
-import defaultSettingsJson from '@/settings.json';
+import defaultSettingsJson from '@schedule/api/settings.json';
+
 import { getConfigModuleOptions } from './utils';
 import { ApiConfig } from './api.config';
 import { IsInstance, ValidateNested } from 'class-validator';

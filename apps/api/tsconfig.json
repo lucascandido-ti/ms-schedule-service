@@ -1,0 +1,16 @@
+{
+  "extends": ["../../tsconfig.json"],
+  "compilerOptions": {
+    "target": "es2021",
+    "declaration": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "incremental": true,
+    "strictNullChecks": true
+  }
+}
