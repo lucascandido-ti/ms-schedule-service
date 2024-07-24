@@ -9,5 +9,8 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint \"src/**/*.ts\" --fix",
         "typecheck": "tsc --noEmit --pretty"
+    },
+    "dependencies": {
+        "@schedule/ddd": "file:../ddd"
     }
 }

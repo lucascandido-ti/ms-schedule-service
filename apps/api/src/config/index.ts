@@ -1,17 +1,23 @@
+import _ from 'lodash';
 import { join } from 'path';
 import { readFileSync } from 'fs';
-import _ from 'lodash';
+import { IsInstance, ValidateNested } from 'class-validator';
 
 import defaultSettingsJson from '@schedule/api/settings.json';
 
-import { getConfigModuleOptions } from './utils';
+import { DbConfig } from './db.config';
 import { ApiConfig } from './api.config';
-import { IsInstance, ValidateNested } from 'class-validator';
+
+import { getConfigModuleOptions } from './utils';
 
 export class Config {
   @ValidateNested({ each: true })
   @IsInstance(ApiConfig)
   api: ApiConfig;
+
+  @ValidateNested({ each: true })
+  @IsInstance(DbConfig)
+  db: DbConfig;
 }
 
 function getConfigJson() {

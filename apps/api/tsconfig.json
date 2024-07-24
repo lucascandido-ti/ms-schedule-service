@@ -11,6 +11,7 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "incremental": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noImplicitOverride":false
   }
 }
