@@ -10,6 +10,12 @@ import { ApiConfig } from './api.config';
 
 import { getConfigModuleOptions } from './utils';
 
+export * from './symbols';
+export * from './utils';
+export * from './api.config';
+export * from './db.config';
+export * from './datasourse.config';
+
 export class Config {
   @ValidateNested({ each: true })
   @IsInstance(ApiConfig)

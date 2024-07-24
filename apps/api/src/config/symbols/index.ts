@@ -1,0 +1,1 @@
+export const SPECIALTIE_SERVICE = Symbol('SPECIALTIE_SERVICE');

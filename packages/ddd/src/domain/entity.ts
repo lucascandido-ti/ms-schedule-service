@@ -9,8 +9,8 @@
 export abstract class Entity<TId> {
   constructor(
     public readonly id: TId,
-    public readonly createdAt = new Date(),
-    public updatedAt = new Date(),
+    public readonly created_at = new Date(),
+    public updated_at = new Date(),
   ) {}
 
   public equals(entity: typeof this): boolean {

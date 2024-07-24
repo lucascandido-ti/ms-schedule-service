@@ -1,5 +1,5 @@
 export enum ScheduleStatus {
-  AVAILABLE,
-  RESERVED,
-  CLOSED,
+  AVAILABLE = 'Available',
+  RESERVED = 'Reserved',
+  CLOSED = 'Closed',
 }
