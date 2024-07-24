@@ -1,0 +1,13 @@
+{
+    "name": "@schedule/ddd",
+    "version": "0.0.1",
+    "private": true,
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc -p tsconfig.build.json",
+        "clean": "rimraf .turbo dist",
+        "format": "prettier --write \"src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" --fix",
+        "typecheck": "tsc --noEmit --pretty"
+    }
+}

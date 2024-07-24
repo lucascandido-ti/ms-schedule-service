@@ -4,8 +4,8 @@
   "private": true,
   "packageManager": "pnpm@9.5.0",
   "scripts": {
+    "ddd": "pnpm --filter @schedule/ddd",
     "core": "pnpm --filter @schedule/core",
-    "infra": "pnpm --filter @schedule/infra",
     "api": "pnpm --filter @schedule/api",
     "build": "turbo run build",
     "clean": "turbo run clean --parallel",
