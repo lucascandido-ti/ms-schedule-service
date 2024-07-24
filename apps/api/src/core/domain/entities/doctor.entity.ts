@@ -6,6 +6,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
   Entity as TypeOrmEntity,
+  OneToMany,
 } from 'typeorm';
 
 import { Status } from '../enum';
@@ -14,6 +15,7 @@ import { IServiceOptions } from '../interfaces';
 import { Specialtie } from './specialtie.entity';
 import { Clinic } from './clinic.entity';
 import { Entity } from '@schedule/ddd';
+import { Schedule } from './schedule.entity';
 
 @TypeOrmEntity()
 export class Doctor extends Entity<number> {
@@ -40,6 +42,9 @@ export class Doctor extends Entity<number> {
 
   @Column('varchar', { nullable: false })
   status: Status;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.doctor)
+  schedule: Schedule;
 
   @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors, {
     onDelete: 'CASCADE',
