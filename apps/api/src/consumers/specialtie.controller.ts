@@ -2,6 +2,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Logger,
@@ -14,11 +15,19 @@ import {
 } from '../core/application/specialtie';
 
 import { Specialtie } from '../core/domain';
+import { GetSpecialtiesQuery } from '../core/application/specialtie/queries/get-specialties.query';
 
 @Controller('specialtie')
 export class SpecialtieController {
   private readonly logger = new Logger(SpecialtieController.name);
   constructor(private commandBus: CommandBus) {}
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  async GetSpecialties() {
+    this.logger.debug('List specialties...');
+    return this.commandBus.execute(new GetSpecialtiesQuery());
+  }
 
   @Post()
   @HttpCode(HttpStatus.ACCEPTED)

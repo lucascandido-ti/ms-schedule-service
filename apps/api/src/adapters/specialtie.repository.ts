@@ -13,6 +13,12 @@ export class SpecialtieRepository implements ISpecialtieRepository {
     private readonly _specialtieRepository: Repository<Specialtie>,
   ) {}
 
+  async ListSpecialties(): Promise<Specialtie[]> {
+    return this._specialtieRepository
+      .createQueryBuilder('specialtie')
+      .getMany();
+  }
+
   async CreateSpecialtie({
     name,
     description,

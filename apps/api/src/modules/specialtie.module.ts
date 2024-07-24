@@ -1,15 +1,19 @@
 import { CqrsModule } from '@nestjs/cqrs';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Provider } from '@nestjs/common';
 
-import { POSTGRES_DATA_SOURCE, SPECIALTIE_REPOSITORY } from '../config';
+import { Specialtie } from '../core/domain';
 import { SpecialtieRepository } from '../adapters';
 import { SpecialtieController } from '../consumers';
+import { POSTGRES_DATA_SOURCE, SPECIALTIE_REPOSITORY } from '../config';
 import { CreateSpecialtieCommandHandler } from '../core/application/specialtie';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Specialtie } from '../core/domain';
+import { GetSpecialtiesQueryHandler } from '../core/application/specialtie/queries';
 
 const controllers = [SpecialtieController];
-const handlers: Provider[] = [CreateSpecialtieCommandHandler];
+const handlers: Provider[] = [
+  GetSpecialtiesQueryHandler,
+  CreateSpecialtieCommandHandler,
+];
 const repositories: Provider[] = [
   { provide: SPECIALTIE_REPOSITORY, useClass: SpecialtieRepository },
 ];
