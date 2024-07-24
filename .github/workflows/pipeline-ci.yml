@@ -28,13 +28,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Copy settings file
-        run: cp ./src/settings.json.template ./src/settings.json
+        run: cp ./apps/api/src/settings.json.template ./apps/api/src/settings.json
 
       - name: Build project
-        run: pnpm run build
+        run: pnpm api build
 
       - name: Test application
-        run: pnpm test:e2e
+        run: pnpm api test:e2e
 
   sonarcloud:
     needs: setup
