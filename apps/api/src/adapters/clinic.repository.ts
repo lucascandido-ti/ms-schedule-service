@@ -25,6 +25,10 @@ export class ClinicRepository implements IClinicRepository {
     private readonly _specialtieRepository: Repository<Specialtie>,
   ) {}
 
+  async ListAllClinics(): Promise<Clinic[]> {
+    return this._clinicRepository.createQueryBuilder('clinic').getMany();
+  }
+
   async CreateClinic(clinic: ClinicDTO): Promise<Clinic> {
     const { addresses, specialties } = clinic;
 

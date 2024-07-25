@@ -7,9 +7,13 @@ import { ClinicController } from '../consumers';
 import { Address, Clinic, Specialtie } from '../core/domain';
 import { CLINIC_REPOSITORY, POSTGRES_DATA_SOURCE } from '../config';
 import { CreateClinicCommandHandler } from '../core/application/clinic/commands';
+import { GetClinicQueryHandler } from '../core/application/clinic/queries';
 
 const services: Provider[] = [];
-const handlers: Provider[] = [CreateClinicCommandHandler];
+const handlers: Provider[] = [
+  GetClinicQueryHandler,
+  CreateClinicCommandHandler,
+];
 const repositories: Provider[] = [
   { provide: CLINIC_REPOSITORY, useClass: ClinicRepository },
 ];
