@@ -15,10 +15,9 @@ export class SpecialtieDTO {
   @IsNotEmpty()
   cfm: string;
 
-  public MapToEntity(id: number, dto: SpecialtieDTO): Specialtie {
+  public MapToEntity(dto: SpecialtieDTO): Specialtie {
     const { name, description, cfm } = dto;
     return {
-      id,
       name,
       description,
       cfm,
