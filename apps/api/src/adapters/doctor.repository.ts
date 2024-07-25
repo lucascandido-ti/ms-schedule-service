@@ -25,6 +25,10 @@ export class DoctorRepository implements IDoctorRepository {
     private readonly _specialtieRepository: Repository<Specialtie>,
   ) {}
 
+  async ListAllDoctors(): Promise<Doctor[]> {
+    return this._doctorRepositoy.createQueryBuilder('doctors').getMany();
+  }
+
   async CreateDoctor(doctor: DoctorDTO): Promise<Doctor> {
     const { clinics, specialties } = doctor;
 
