@@ -9,13 +9,14 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { Entity } from '@schedule/ddd';
+
 import { Status } from '../enum';
 import { IServiceOptions } from '../interfaces';
 
-import { Specialtie } from './specialtie.entity';
 import { Clinic } from './clinic.entity';
-import { Entity } from '@schedule/ddd';
 import { Schedule } from './schedule.entity';
+import { Specialtie } from './specialtie.entity';
 
 @TypeOrmEntity()
 export class Doctor extends Entity<number> {
@@ -23,7 +24,7 @@ export class Doctor extends Entity<number> {
   id: number;
 
   @Column('varchar', { nullable: false })
-  user_id: number;
+  user_id: string;
 
   @Column('varchar', { nullable: false })
   name: string;
@@ -44,7 +45,7 @@ export class Doctor extends Entity<number> {
   status: Status;
 
   @OneToMany(() => Schedule, (schedule) => schedule.doctor)
-  schedule: Schedule;
+  schedules: Schedule[];
 
   @ManyToMany(() => Specialtie, (specialtie) => specialtie.doctors, {
     onDelete: 'CASCADE',

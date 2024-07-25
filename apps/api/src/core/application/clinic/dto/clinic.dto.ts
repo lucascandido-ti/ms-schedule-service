@@ -88,12 +88,18 @@ export class ClinicDTO {
       specialties,
     } = entity;
 
-    const addressesEntity = addresses.map((address) =>
-      new AddressDTO().MapToDTO(address),
-    );
-    const specialtiesEntity = specialties.map((specialtie) =>
-      new SpecialtieDTO().MapToDTO(specialtie),
-    );
+    const addressDTO: AddressDTO[] = [];
+    const specialtieDTO: SpecialtieDTO[] = [];
+
+    if (addresses && addresses.length)
+      addresses.map((address) =>
+        addressDTO.push(new AddressDTO().MapToDTO(address)),
+      );
+
+    if (specialties && specialties.length)
+      specialties.map((specialtie) =>
+        specialtieDTO.push(new SpecialtieDTO().MapToDTO(specialtie)),
+      );
 
     return {
       name,
@@ -102,8 +108,8 @@ export class ClinicDTO {
       company_name,
       contact,
       bussiness_hour,
-      addresses: addressesEntity,
-      specialties: specialtiesEntity,
+      addresses: addressDTO,
+      specialties: specialtieDTO,
     } as ClinicDTO;
   }
 }

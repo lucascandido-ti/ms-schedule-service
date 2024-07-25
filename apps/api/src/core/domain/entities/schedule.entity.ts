@@ -30,7 +30,7 @@ export class Schedule extends Entity<number> {
   @Column('varchar', { nullable: false })
   status: ScheduleStatus;
 
-  @ManyToOne(() => Doctor, (doctor) => doctor.schedule)
+  @ManyToOne(() => Doctor, (doctor) => doctor.schedules)
   @JoinColumn({
     name: 'doctorId',
     referencedColumnName: 'id',

@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ConfigModuleOptions, postgresTypeOrmModuleOptions } from './config';
 
-import { ClinicModule, SpecialtieModule } from './modules';
+import { ClinicModule, DoctorModule, SpecialtieModule } from './modules';
 
 @Module({
   imports: [
@@ -12,6 +12,7 @@ import { ClinicModule, SpecialtieModule } from './modules';
     TypeOrmModule.forRootAsync(postgresTypeOrmModuleOptions),
     SpecialtieModule,
     ClinicModule,
+    DoctorModule,
   ],
 })
 export class AppModule {}
