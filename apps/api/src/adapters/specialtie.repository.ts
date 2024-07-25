@@ -1,10 +1,10 @@
 import { Repository } from 'typeorm';
+import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { POSTGRES_DATA_SOURCE } from '../config';
 import { SpecialtieDTO } from '../core/application/specialtie';
 import { ISpecialtieRepository, Specialtie, Status } from '../core/domain';
-import { Logger } from '@nestjs/common';
-import { POSTGRES_DATA_SOURCE } from '../config';
 
 export class SpecialtieRepository implements ISpecialtieRepository {
   private readonly logger = new Logger(SpecialtieRepository.name);

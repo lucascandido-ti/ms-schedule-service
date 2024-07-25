@@ -1,8 +1,11 @@
-import { IsDate, IsEnum } from 'class-validator';
+import { IsDate, IsEnum, IsNumber } from 'class-validator';
 
 import { Schedule, ScheduleStatus } from '@schedule/api/core/domain';
 
 export class ScheduleDTO {
+  @IsNumber()
+  doctorId: number;
+
   @IsDate()
   date: Date;
 

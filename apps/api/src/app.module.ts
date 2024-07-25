@@ -4,7 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { ConfigModuleOptions, postgresTypeOrmModuleOptions } from './config';
 
-import { ClinicModule, DoctorModule, SpecialtieModule } from './modules';
+import {
+  ClinicModule,
+  DoctorModule,
+  SpecialtieModule,
+  ScheduleModule,
+} from './modules';
 
 @Module({
   imports: [
@@ -13,6 +18,7 @@ import { ClinicModule, DoctorModule, SpecialtieModule } from './modules';
     SpecialtieModule,
     ClinicModule,
     DoctorModule,
+    ScheduleModule,
   ],
 })
 export class AppModule {}
