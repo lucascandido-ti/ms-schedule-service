@@ -2,14 +2,21 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Provider } from '@nestjs/common';
 
-import { Doctor, Schedule } from '../core/domain';
 import { ScheduleRepository } from '../adapters';
 import { ScheduleController } from '../consumers';
+import { Doctor, Schedule } from '../core/domain';
 import { POSTGRES_DATA_SOURCE, SCHEDULE_REPOSITORY } from '../config';
-import { CreateScheduleCommandHandler } from '../core/application/schedule';
+
+import {
+  CreateScheduleCommandHandler,
+  GetScheduleDoctorQueryHandler,
+} from '../core/application/schedule';
 
 const services: Provider[] = [];
-const handlers: Provider[] = [CreateScheduleCommandHandler];
+const handlers: Provider[] = [
+  GetScheduleDoctorQueryHandler,
+  CreateScheduleCommandHandler,
+];
 const repositories: Provider[] = [
   { provide: SCHEDULE_REPOSITORY, useClass: ScheduleRepository },
 ];

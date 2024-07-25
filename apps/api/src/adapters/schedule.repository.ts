@@ -22,6 +22,15 @@ export class ScheduleRepository implements IScheduleRepository {
     private readonly _doctorRepository: Repository<Doctor>,
   ) {}
 
+  async ListScheduleDoctor(doctorId: number): Promise<Schedule[]> {
+    const queryBuilder = this._scheduleRepository
+      .createQueryBuilder('schedule')
+      .innerJoinAndSelect('schedule.doctor', 'doctor')
+      .where('doctor.id = :doctorId', { doctorId: doctorId });
+
+    return queryBuilder.getMany();
+  }
+
   async CreateSchedule(dto: CreateScheduleDTO): Promise<Schedule[]> {
     const { doctorId, schedules } = dto;
 
