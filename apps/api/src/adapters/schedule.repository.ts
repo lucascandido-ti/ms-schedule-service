@@ -7,10 +7,14 @@ import {
   Doctor,
   IScheduleRepository,
   NotFoundDoctorException,
+  NotFoundScheduleException,
   Schedule,
   ScheduleStatus,
 } from '../core/domain';
-import { CreateScheduleDTO } from '../core/application/schedule';
+import {
+  CreateScheduleDTO,
+  UpdateScheduleDTO,
+} from '../core/application/schedule';
 
 export class ScheduleRepository implements IScheduleRepository {
   private readonly logger = new Logger(ScheduleRepository.name);
@@ -22,11 +26,30 @@ export class ScheduleRepository implements IScheduleRepository {
     private readonly _doctorRepository: Repository<Doctor>,
   ) {}
 
+  async UpdateSchedule(schedule: UpdateScheduleDTO): Promise<Schedule> {
+    const editSchedule = await this._scheduleRepository.findOneBy({
+      id: schedule.scheduleId,
+    });
+
+    if (!editSchedule)
+      throw new NotFoundScheduleException('Not found Schedule');
+
+    editSchedule.date = schedule.date ?? editSchedule.date;
+    editSchedule.startHour = schedule.startHour ?? editSchedule.startHour;
+    editSchedule.finishHour = schedule.finishHour ?? editSchedule.finishHour;
+    editSchedule.status = schedule.status ?? editSchedule.status;
+
+    const scheduleEntity = await this._scheduleRepository.save(editSchedule);
+
+    return scheduleEntity;
+  }
+
   async ListScheduleDoctor(doctorId: number): Promise<Schedule[]> {
     const queryBuilder = this._scheduleRepository
       .createQueryBuilder('schedule')
       .innerJoinAndSelect('schedule.doctor', 'doctor')
-      .where('doctor.id = :doctorId', { doctorId: doctorId });
+      .where('doctor.id = :doctorId', { doctorId: doctorId })
+      .orderBy('schedule.id', 'ASC');
 
     return queryBuilder.getMany();
   }

@@ -10,12 +10,14 @@ import { POSTGRES_DATA_SOURCE, SCHEDULE_REPOSITORY } from '../config';
 import {
   CreateScheduleCommandHandler,
   GetScheduleDoctorQueryHandler,
+  UpdateScheduleCommandHandler,
 } from '../core/application/schedule';
 
 const services: Provider[] = [];
 const handlers: Provider[] = [
   GetScheduleDoctorQueryHandler,
   CreateScheduleCommandHandler,
+  UpdateScheduleCommandHandler,
 ];
 const repositories: Provider[] = [
   { provide: SCHEDULE_REPOSITORY, useClass: ScheduleRepository },

@@ -7,11 +7,14 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 
 import {
   CreateScheduleCommand,
   CreateScheduleDTO,
+  UpdateScheduleCommand,
+  UpdateScheduleDTO,
 } from '../core/application/schedule';
 import { GetScheduleDoctorQuery } from '../core/application/schedule/queries';
 
@@ -24,6 +27,14 @@ export class ScheduleController {
   async ListScheduleDoctor(@Param('doctorId') doctorId: number) {
     return this._commandBus.execute(
       new GetScheduleDoctorQuery({ doctorId: doctorId }),
+    );
+  }
+
+  @Put()
+  @HttpCode(HttpStatus.ACCEPTED)
+  async UpdateSchedule(@Body() createSchedule: UpdateScheduleDTO) {
+    return this._commandBus.execute(
+      new UpdateScheduleCommand({ schedule: createSchedule }),
     );
   }
 
