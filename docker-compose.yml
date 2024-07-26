@@ -34,6 +34,7 @@ services:
       KC_DB_PASSWORD: root
     volumes:
       - ./.docker/keycloak:/opt/keycloak/data
+      - ./keycloak-theme:/opt/keycloak/providers
     profiles: [dev]
     depends_on:
       - schedule-db
