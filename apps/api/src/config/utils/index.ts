@@ -7,6 +7,8 @@ import {
 import { validateSync } from 'class-validator';
 import { ClassConstructor, plainToClass } from 'class-transformer';
 
+export * from './auth.utils';
+
 function loadJsonFactory<T>(
   constructor: ClassConstructor<T>,
   config: Record<string, unknown>,

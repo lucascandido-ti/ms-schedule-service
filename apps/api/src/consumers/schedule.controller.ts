@@ -17,6 +17,7 @@ import {
   UpdateScheduleDTO,
 } from '../core/application/schedule';
 import { GetScheduleDoctorQuery } from '../core/application/schedule/queries';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('schedule')
 export class ScheduleController {
@@ -31,6 +32,7 @@ export class ScheduleController {
   }
 
   @Put()
+  @Roles({ roles: ['doctor'] })
   @HttpCode(HttpStatus.ACCEPTED)
   async UpdateSchedule(@Body() createSchedule: UpdateScheduleDTO) {
     return this._commandBus.execute(
@@ -39,6 +41,7 @@ export class ScheduleController {
   }
 
   @Post()
+  @Roles({ roles: ['doctor'] })
   @HttpCode(HttpStatus.ACCEPTED)
   async CreateSchedule(@Body() createSchedule: CreateScheduleDTO) {
     return this._commandBus.execute(

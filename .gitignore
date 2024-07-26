@@ -480,3 +480,5 @@ $RECYCLE.BIN/
 **/pkg
 
 **/settings.json
+
+.docker/keycloak/**/*

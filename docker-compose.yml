@@ -12,6 +12,34 @@ services:
     networks:
       - schedule-service
 
+  keycloak:
+    container_name: hack-keycloak
+    image: quay.io/keycloak/keycloak:23.0.6
+    command: start
+    ports:
+      - '8080:8080'
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://ms-schedule-db/scheduledb
+      KC_DB_SCHEMA: keycloak
+      KC_DB_USERNAME: root
+      KC_DB_PASSWORD: root
+    volumes:
+      - ./.docker/keycloak:/opt/keycloak/data
+    profiles: [dev]
+    depends_on:
+      - schedule-db
+    networks:
+      - schedule-service
+
   application:
     container_name: schedule-service-app
     build: .

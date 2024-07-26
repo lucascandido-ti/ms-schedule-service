@@ -10,6 +10,7 @@ import {
 
 import { CreateDoctorCommand, DoctorDTO } from '../core/application/doctor';
 import { GetDoctorsQuery } from '../core/application/doctor/queries/get-doctors.query';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('doctor')
 export class DoctorController {
@@ -22,6 +23,7 @@ export class DoctorController {
   }
 
   @Post()
+  @Roles({ roles: ['admin'] })
   @HttpCode(HttpStatus.ACCEPTED)
   async CreateDoctor(@Body() createDoctor: DoctorDTO) {
     return this.commandBus.execute(

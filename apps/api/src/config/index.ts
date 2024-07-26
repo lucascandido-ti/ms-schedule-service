@@ -9,17 +9,23 @@ import { DbConfig } from './db.config';
 import { ApiConfig } from './api.config';
 
 import { getConfigModuleOptions } from './utils';
+import { AuthConfig } from './auth.config';
 
 export * from './symbols';
 export * from './utils';
 export * from './api.config';
 export * from './db.config';
 export * from './datasourse.config';
+export * from './auth.config';
 
 export class Config {
   @ValidateNested({ each: true })
   @IsInstance(ApiConfig)
   api: ApiConfig;
+
+  @ValidateNested({ each: true })
+  @IsInstance(AuthConfig)
+  auth: AuthConfig;
 
   @ValidateNested({ each: true })
   @IsInstance(DbConfig)

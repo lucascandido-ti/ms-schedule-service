@@ -16,6 +16,7 @@ import {
 
 import { Specialtie } from '../core/domain';
 import { GetSpecialtiesQuery } from '../core/application/specialtie/queries/get-specialties.query';
+import { Roles } from 'nest-keycloak-connect';
 
 @Controller('specialtie')
 export class SpecialtieController {
@@ -30,6 +31,7 @@ export class SpecialtieController {
   }
 
   @Post()
+  @Roles({ roles: ['doctor'] })
   @HttpCode(HttpStatus.ACCEPTED)
   async CreateSpecialtie(
     @Body() createSpecialtie: SpecialtieDTO,
